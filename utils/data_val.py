@@ -2,15 +2,15 @@ import os
 from PIL import Image
 import torch.utils.data as data
 import torchvision.transforms as transforms
-import random
 import numpy as np
 from PIL import ImageEnhance
+import secrets
 
 
 # several data augumentation strategies
 def cv_random_flip(img, label):
     # left right flip
-    flip_flag = random.randint(0, 1)
+    flip_flag = secrets.SystemRandom().randint(0, 1)
     if flip_flag == 1:
         img = img.transpose(Image.FLIP_LEFT_RIGHT)
         label = label.transpose(Image.FLIP_LEFT_RIGHT)
@@ -31,7 +31,7 @@ def randomCrop(image, label):
 
 def randomRotation(image, label):
     mode = Image.BICUBIC
-    if random.random() > 0.8:
+    if secrets.SystemRandom().random() > 0.8:
         random_angle = np.random.randint(-15, 15)
         image = image.rotate(random_angle, mode)
         label = label.rotate(random_angle, mode)
@@ -39,13 +39,13 @@ def randomRotation(image, label):
 
 
 def colorEnhance(image):
-    bright_intensity = random.randint(5, 15) / 10.0
+    bright_intensity = secrets.SystemRandom().randint(5, 15) / 10.0
     image = ImageEnhance.Brightness(image).enhance(bright_intensity)
-    contrast_intensity = random.randint(5, 15) / 10.0
+    contrast_intensity = secrets.SystemRandom().randint(5, 15) / 10.0
     image = ImageEnhance.Contrast(image).enhance(contrast_intensity)
-    color_intensity = random.randint(0, 20) / 10.0
+    color_intensity = secrets.SystemRandom().randint(0, 20) / 10.0
     image = ImageEnhance.Color(image).enhance(color_intensity)
-    sharp_intensity = random.randint(0, 30) / 10.0
+    sharp_intensity = secrets.SystemRandom().randint(0, 30) / 10.0
     image = ImageEnhance.Sharpness(image).enhance(sharp_intensity)
     return image
 
@@ -53,7 +53,7 @@ def colorEnhance(image):
 def randomGaussian(image, mean=0.1, sigma=0.35):
     def gaussianNoisy(im, mean=mean, sigma=sigma):
         for _i in range(len(im)):
-            im[_i] += random.gauss(mean, sigma)
+            im[_i] += secrets.SystemRandom().gauss(mean, sigma)
         return im
 
     img = np.asarray(image)
@@ -68,11 +68,11 @@ def randomPeper(img):
     noiseNum = int(0.0015 * img.shape[0] * img.shape[1])
     for i in range(noiseNum):
 
-        randX = random.randint(0, img.shape[0] - 1)
+        randX = secrets.SystemRandom().randint(0, img.shape[0] - 1)
 
-        randY = random.randint(0, img.shape[1] - 1)
+        randY = secrets.SystemRandom().randint(0, img.shape[1] - 1)
 
-        if random.randint(0, 1) == 0:
+        if secrets.SystemRandom().randint(0, 1) == 0:
 
             img[randX, randY] = 0
 

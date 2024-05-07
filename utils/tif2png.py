@@ -2,7 +2,7 @@ import os
 import shutil
 from libtiff import TIFF    # pip install libtiff
 from scipy import misc
-import random
+import secrets
 
 
 def tif2png(_src_path, _dst_path):
@@ -25,7 +25,7 @@ def data_split(src_list):
     :param src_list:
     :return:
     """
-    counter_list = random.sample(range(0, len(src_list)), 550)
+    counter_list = secrets.SystemRandom().sample(range(0, len(src_list)), 550)
 
     return counter_list
 
