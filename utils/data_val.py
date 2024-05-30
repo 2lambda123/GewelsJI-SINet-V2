@@ -88,8 +88,7 @@ class PolypObjDataset(data.Dataset):
         self.trainsize = trainsize
         # get filenames
         self.images = [image_root + f for f in os.listdir(image_root) if f.endswith('.jpg')]
-        self.gts = [gt_root + f for f in os.listdir(gt_root) if f.endswith('.jpg')
-                    or f.endswith('.png')]
+        self.gts = [gt_root + f for f in os.listdir(gt_root) if f.endswith(('.jpg', '.png'))]
         # self.grads = [grad_root + f for f in os.listdir(grad_root) if f.endswith('.jpg')
         #               or f.endswith('.png')]
         # self.depths = [depth_root + f for f in os.listdir(depth_root) if f.endswith('.bmp')
@@ -172,8 +171,8 @@ def get_loader(image_root, gt_root, batchsize, trainsize,
 class test_dataset:
     def __init__(self, image_root, gt_root, testsize):
         self.testsize = testsize
-        self.images = [image_root + f for f in os.listdir(image_root) if f.endswith('.jpg') or f.endswith('.png')]
-        self.gts = [gt_root + f for f in os.listdir(gt_root) if f.endswith('.tif') or f.endswith('.png')]
+        self.images = [image_root + f for f in os.listdir(image_root) if f.endswith(('.jpg', '.png'))]
+        self.gts = [gt_root + f for f in os.listdir(gt_root) if f.endswith(('.tif', '.png'))]
         self.images = sorted(self.images)
         self.gts = sorted(self.gts)
         self.transform = transforms.Compose([

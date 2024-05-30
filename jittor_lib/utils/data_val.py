@@ -76,7 +76,7 @@ class PolypObjDataset(dataset.Dataset):
         super().__init__()
         self.trainsize = trainsize
         self.images = [(image_root + f) for f in os.listdir(image_root) if f.endswith('.jpg')]
-        self.gts = [(gt_root + f) for f in os.listdir(gt_root) if (f.endswith('.jpg') or f.endswith('.png'))]
+        self.gts = [(gt_root + f) for f in os.listdir(gt_root) if f.endswith(('.jpg', '.png'))]
         self.images = sorted(self.images)
         self.gts = sorted(self.gts)
         self.filter_files()
@@ -144,8 +144,8 @@ class test_dataset(dataset.Dataset):
     def __init__(self, image_root, gt_root, testsize):
         super().__init__(self)
         self.testsize = testsize
-        self.images = [(image_root + f) for f in os.listdir(image_root) if (f.endswith('.jpg') or f.endswith('.png'))]
-        self.gts = [(gt_root + f) for f in os.listdir(gt_root) if (f.endswith('.tif') or f.endswith('.png'))]
+        self.images = [(image_root + f) for f in os.listdir(image_root) if f.endswith(('.jpg', '.png'))]
+        self.gts = [(gt_root + f) for f in os.listdir(gt_root) if f.endswith(('.tif', '.png'))]
         self.images = sorted(self.images)
         self.gts = sorted(self.gts)
         self.transform = jt.transform.Compose([

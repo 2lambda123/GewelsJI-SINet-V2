@@ -10,7 +10,7 @@ class PolypDataset(data.Dataset):
     """
     def __init__(self, image_root, gt_root, trainsize):
         self.trainsize = trainsize
-        self.images = [image_root + f for f in os.listdir(image_root) if f.endswith('.jpg') or f.endswith('.png')]
+        self.images = [image_root + f for f in os.listdir(image_root) if f.endswith(('.jpg', '.png'))]
         self.gts = [gt_root + f for f in os.listdir(gt_root) if f.endswith('.png')]
         self.images = sorted(self.images)
         self.gts = sorted(self.gts)
@@ -84,8 +84,8 @@ def get_loader(image_root, gt_root, batchsize, trainsize, shuffle=True, num_work
 class test_dataset:
     def __init__(self, image_root, gt_root, testsize):
         self.testsize = testsize
-        self.images = [image_root + f for f in os.listdir(image_root) if f.endswith('.jpg') or f.endswith('.png')]
-        self.gts = [gt_root + f for f in os.listdir(gt_root) if f.endswith('.tif') or f.endswith('.png')]
+        self.images = [image_root + f for f in os.listdir(image_root) if f.endswith(('.jpg', '.png'))]
+        self.gts = [gt_root + f for f in os.listdir(gt_root) if f.endswith(('.tif', '.png'))]
         self.images = sorted(self.images)
         self.gts = sorted(self.gts)
         self.transform = transforms.Compose([
